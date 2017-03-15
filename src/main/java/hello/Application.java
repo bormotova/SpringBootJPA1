@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
+//import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class Application implements CommandLineRunner {
@@ -28,7 +28,7 @@ public class Application implements CommandLineRunner {
 	public void run(String... args) {
 //		return (args) -> {
 			// save a couple of customers
-			customerRepository.save(new Customer("Jack", "Bauer"));
+/*			customerRepository.save(new Customer("Jack", "Bauer"));
 			customerRepository.save(new Customer("Chloe", "O'Brian"));
 			customerRepository.save(new Customer("Kim", "Bauer"));
 			customerRepository.save(new Customer("David", "Palmer"));
@@ -52,7 +52,7 @@ public class Application implements CommandLineRunner {
 			// fetch customers by last name
 			log.info("Customer found with findByLastName('Bauer'):");
 			log.info("--------------------------------------------");
-			for (Customer bauer : customerRepository.findByLastName("Bauer")) {
+			for (Customer bauer : customerRepository.findBylastname("Bauer")) {
 				log.info(bauer.toString());
 			}
 			log.info("");
@@ -63,7 +63,7 @@ public class Application implements CommandLineRunner {
 			for (Customer brian : customerRepository.findBySearchTerm("bria")) {
 				log.info(brian.toString());
 			}
-			log.info("");
+			log.info("");*/
 //		};
 //	}
 
@@ -71,11 +71,26 @@ public class Application implements CommandLineRunner {
 //	public CommandLineRunner demo(ProjectRepository projectRepository) {
 		//return (args) -> {
 			// save a couple of project
-			projectRepository.save(new Project("Project1"));
-			projectRepository.save(new Project("Project2"));
-			projectRepository.save(new Project("Project3"));
-			projectRepository.save(new Project("Project4"));
-			projectRepository.save(new Project("Project5"));
+			Project proj = new Project();
+			proj.addCustomer(customerRepository.save(new Customer("Jack", "Bauer")));
+			proj.addCustomer(customerRepository.save(new Customer("Chloe", "O'Brian")));
+			proj.setName("subbotnik");
+			projectRepository.save(proj);
+
+			proj = new Project();
+			proj.addCustomer(customerRepository.save(new Customer("Kim", "Bauer")));
+			proj.addCustomer(customerRepository.save(new Customer("David", "Palmer")));
+			proj.setName("Project2");
+			projectRepository.save(proj);
+
+			proj = new Project();
+			proj.addCustomer(customerRepository.save(new Customer("Michelle", "Dessler")));
+			proj.setName("Project3");
+			projectRepository.save(proj);
+
+//			projectRepository.save(new Project("Project3"));
+//			projectRepository.save(new Project("Project4"));
+//			projectRepository.save(new Project("Project5"));
 
 			// fetch all customers
 			log.info("Project found with findAll():");

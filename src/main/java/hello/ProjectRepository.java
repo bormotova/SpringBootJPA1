@@ -14,4 +14,13 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 public interface ProjectRepository extends PagingAndSortingRepository<Project, Long> {
 
     List<Project> findByName(@Param("name") String name);
+
+    @Query("SELECT p.name FROM Project p join p.customers c WHERE " +
+            "LOWER(c.firstname) LIKE LOWER(CONCAT('%',:searchTerm,'%')) OR " +
+            "LOWER(c.lastname) LIKE LOWER(CONCAT('%',:searchTerm,'%'))")
+    List<String> findProjectByCustomer(@Param("searchTerm") String searchTerm);
+
+/*    @Query("SELECT c FROM Project p, Customer c WHERE c = p.customers AND " +
+            "LOWER(p.name) LIKE LOWER(CONCAT('%',:searchTerm,'%'))")
+    List<Customer> findCustomerByProject(@Param("searchTerm") String searchTerm);*/
 }

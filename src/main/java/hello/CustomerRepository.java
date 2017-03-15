@@ -10,10 +10,10 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 @RepositoryRestResource(collectionResourceRel = "people", path = "people")
 public interface CustomerRepository extends PagingAndSortingRepository<Customer, Long> {
 
-    List<Customer> findByLastName(@Param("name") String name);
+    List<Customer> findBylastname(@Param("lastName") String lastname);
 
     @Query("SELECT c FROM Customer c WHERE " +
-        "LOWER(c.firstName) LIKE LOWER(CONCAT('%',:searchTerm,'%')) OR " +
-        "LOWER(c.lastName) LIKE LOWER(CONCAT('%',:searchTerm,'%'))")
+        "LOWER(c.firstname) LIKE LOWER(CONCAT('%',:searchTerm,'%')) OR " +
+        "LOWER(c.lastname) LIKE LOWER(CONCAT('%',:searchTerm,'%'))")
     List<Customer> findBySearchTerm(@Param("searchTerm") String searchTerm);
 }
