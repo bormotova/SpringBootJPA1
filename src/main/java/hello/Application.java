@@ -56,6 +56,14 @@ public class Application implements CommandLineRunner {
 				log.info(bauer.toString());
 			}
 			log.info("");
+
+			// fetch customers by term
+			log.info("Customer found with findBySearchTerm('bria'):");
+			log.info("--------------------------------------------");
+			for (Customer brian : customerRepository.findBySearchTerm("bria")) {
+				log.info(brian.toString());
+			}
+			log.info("");
 //		};
 //	}
 
